@@ -3,14 +3,15 @@
 namespace App\Classes;
 
 use App\Interfaces\DeliveryRulesInterface;
+use App\Interfaces\OffersInterface;
 
 class Basket {
     private array $catalog = [];
     private array $products = [];
     private DeliveryRulesInterface $deliveryRule;
-    private object $offers;
+    private OffersInterface $offers;
 
-    public function __construct (array $catalog, DeliveryRulesInterface $deliveryRule, object $offers) {
+    public function __construct (array $catalog, DeliveryRulesInterface $deliveryRule, OffersInterface $offers) {
         $this->catalog = $catalog;
         $this->deliveryRule = $deliveryRule;
         $this->offers = $offers;
@@ -46,7 +47,7 @@ class Basket {
         $discount = $this->offers->countTotalOffers($this->products);
         $deliveryCost = $this->deliveryRule->getDeliveryCost($subtotal - $discount);
 
-        return round($subtotal - $discount + $deliveryCost, 2, PHP_ROUND_HALF_DOWN);
+        return round(($subtotal - $discount) + $deliveryCost, 2, PHP_ROUND_HALF_DOWN);
 
     }
 }
