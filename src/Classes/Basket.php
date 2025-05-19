@@ -46,7 +46,7 @@ class Basket {
         $discount = $this->offers->countTotalOffers($this->products);
         $deliveryCost = $this->deliveryRule->getDeliveryCost($subtotal - $discount);
 
-        return round($subtotal - $discount + $deliveryCost, 2);
+        return round($subtotal - $discount + $deliveryCost, 2, PHP_ROUND_HALF_DOWN);
 
     }
 }

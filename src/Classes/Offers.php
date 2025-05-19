@@ -46,6 +46,9 @@ class Offers implements OffersInterface {
      * @return float
      */
     public function countTotalOffers(array $products): float {
+        // Reset discount value for each call.
+        $this->discount = 0;
+
         $this->getBuyOneGetOneAsHalf($products);
         return $this->discount;
     }
